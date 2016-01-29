@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+<head>
+    <title>Welcome to Lean Fridge</title>
+
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+
+<script type = 'text/javascript'>
+    var stock_array = [
+            {item_id: 1, Name: 'apple', count: '5', purchased_on: '2016-01-22', detail: 'organic Fuji apples'},
+            {item_id: 2, Name: 'orange', count: '4', purchased_on: '2016-01-21', detail: 'Navel oranges for smoothie'},
+            {item_id: 3, Name: 'cucumber', count: '6', purchased_on: '2016-01-24', detail: 'cool as a cucumber'},
+            {item_id: 4, Name: 'almond milk', count: '1', purchased_on: '2016-01-20', detail: 'For breakfast'},
+            {item_id: 5, Name: 'Quinoa', count: '1', purchased_on: '2016-01-24', detail:'1 bag, 1.5 pound'},
+            {item_id: 6, Name: 'potato', count: '6', purchased_on: '2016-01-23', detail:'purple and red potatoes'},
+            {item_id: 7, Name: 'chocolate', count: '2', purchased_on: '2016-01-19', detail:'dark chocolate, good for hot drink'}
+            ]
+
+        console.log(stock_array.length);
+
+
+    function createTable(){
+
+        var table_ref = document.getElementById('table_body');
+
+        for(var i = 0; i < stock_array.length; i++){
+            var new_row = table_ref.insertRow(0);
+            var new_cell_0 = new_row.insertCell(0);
+            var cell_id = document.createTextNode(stock_array[i].item_id);
+            new_cell_0.appendChild(cell_id);
+            var new_cell_1 = new_row.insertCell(1); 
+            var cell_name = document.createTextNode(stock_array[i].Name);
+            new_cell_1.appendChild(cell_name);
+            //alert('hello')
+            var new_cell_2 = new_row.insertCell(2);
+            var cell_count = document.createTextNode(stock_array[i].count);
+            new_cell_2.appendChild(cell_count);
+            var new_cell_3 = new_row.insertCell(3);
+            var cell_date = document.createTextNode(stock_array[i].purchased_on);
+            new_cell_3.appendChild(cell_date);
+            var new_cell_4 = new_row.insertCell(4);
+            var detail_button = document.createElement('button');
+             //add click handler to the detail button
+            detail_button.onclick = clickHandler(i);
+            var button_text = document.createTextNode('Click for details');
+            detail_button.appendChild(button_text);
+            new_cell_4.appendChild(detail_button);
+            var new_cell_5 = new_row.insertCell(5);
+            var update_button = document.createElement('button');
+            //add click handler to the update button
+            update_button.onclick = updateHandler(i);
+            var update_msg = document.createTextNode('Update');
+            update_button.appendChild(update_msg);
+            update_button.onclick = updateHandler(i);
+            new_cell_5.appendChild(update_button);
+            var new_cell_6 = new_row.insertCell(6);
+            var delete_button = document.createElement('button');
+            //add delete handler to the delete button
+            delete_button.onclick = deleteHandler(i);
+            var delete_msg = document.createTextNode('Delete');
+            delete_button.appendChild(delete_msg);
+            new_cell_6.appendChild(delete_button);
+
+            new_row.appendChild(new_cell_0);
+            new_row.appendChild(new_cell_1);
+            new_row.appendChild(new_cell_2);
+            new_row.appendChild(new_cell_3);
+            new_row.appendChild(new_cell_4);
+            new_row.appendChild(new_cell_5);
+            new_row.appendChild(new_cell_6);
+            table_ref.appendChild(new_row);
+
+        };
+    };
+
+    window.onload=createTable;
+
+    function addItem(){
+        var new_item_id = document.getElementById('table_body').rows.length + 1;
+        console.log(new_item_id);
+        var new_item_name = document.getElementById('newItemName').value;
+        console.log(new_item_name);
+        var new_item_count = document.getElementById('newItemCount').value;
+        console.log(new_item_count);
+        var new_item_date = document.getElementById('newItemDate').value;
+        console.log(new_item_date);
+        var new_item_info = document.getElementById('newItemInfo').value;
+        console.log(new_item_info);
+        var new_dic = {item_id: new_item_id, Name: new_item_name, count: new_item_count, purchased_on: new_item_date, detail: new_item_info};
+        console.log(new_dic);
+        console.log(stock_array);
+        stock_array.push(new_dic);
+        console.log(stock_array);
+        createTable();
+    }
+
+    function clickHandler(i){
+        return function(){
+            alert(stock_array[i].detail);
+    };
+};
+    
+    function updateHandler(i){
+        return function(){
+
+            //create a path links to secondary page of an item
+            var new_url = ''
+            var curr_url = window.location.pathname;
+            var query_str = stock_array[i].item_id;
+            var index = curr_url.indexOf('items');
+            window.location.href=curr_url.substring(0, index) + query_str + '.html'
+            
+            };
+        };
+    function deleteHandler(i){
+        return function(){
+            var alert_msg = confirm("Are you sure you want to delete this item: " + stock_array[i].Name + "?");
+            if (alert_msg == true) {
+                var target_row = document.getElementById('table_body').rows[i];
+                target_row.parentNode.removeChild(target_row);
+
+            };
+        };
+    };
+
+</script>
+</head>
+
+<style>
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #b3ffcc;
+}
+.text-center {
+    text-align: center;
+    margin: 0px auto;
+}
+</style>
+
+<body>
+
+<div class = 'container'>
+
+<h2 class = 'text-center'>Welcome to Your Lean Fridge!</h2> 
+<h3><span class = 'glyphicon glyphicon-th-list'></span> Stock Overview</h3>
+<br />
+
+<table class = 'table table-hover table-striped table-bordered' id = 'stock_table'>
+  <tr>
+      <th>ID</th>  
+      <th>Name</th>
+      <th>Count</th>
+      <th>Purchased On</th>
+      <th>Details</th>
+      <th>Update Item</th>
+      <th>Delete Item</th>
+  </tr>
+  <tbody id = 'table_body' onload = 'createTable();'></tbody>
+</table>
+
+<h3><span class='glyphicon glyphicon-plus'></span> Add New Item</h3>
+    <div class = 'panel panel-success text-center'></div>
+        <div class='panel-body col-sm-12 text-center'></div>
+        <form method = 'POST' enctype = 'multipart/form-data' class = 'form-horizontal' id = 'newItemForm'>
+    <div class='form-group'>
+        <label for='newItemName' class = 'col-sm-2 control-label'>New item name:</label>
+        <div class='col-sm-5'>
+        <input type = 'text' class='form-control' id = 'newItemName' name = 'newItemName' placeholder = 'New item name' required>
+    </div>
+    </div>
+
+    <div class='form-group'>
+        <label for='newItemCount' class = 'col-sm-2 control-label'>Count:</label>
+        <div class= 'col-sm-5'>
+        <input type = 'number' class='form-control' id = 'newItemCount' name = 'newItemCount' required>
+    </div>
+    </div>
+
+
+    <div class='form-group'>
+
+        <label for='itemDate' class = 'col-sm-2 control-label'>Purchased on:</label>
+        <div class='col-sm-5'>
+        <input type = 'date' class = 'form-control' id = 'newItemDate' name = 'itemDate'required>
+    </div>
+    </div>
+    <div class='form-group'>
+        <label for='description' class = 'col-sm-2 control-label'>Description:</label>
+        <div class='col-sm-5'>
+        <textarea class='form-control' id = 'newItemInfo' placeholder = 'Describe the new item'></textarea>
+    </div>
+    </div>
+    <div class='col-md-12'>
+        <div class='text-center'>
+            <button type = 'submit' id = 'addButton' name = 'addButton' class='btn btn-success' onclick = "addItem(); return false;">Add to stock</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+
+
+
