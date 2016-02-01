@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+
+<html lang='en'>
+<head>
+    <title>Update Item Information</title>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+
+<style>
+h2.panel-title {
+    font-size: 20pt;
+}
+</style>
+
+<script type = 'text/javascript'>
+    function updateItem(){
+    var stock_array = [
+            {item_id: '1', Name: 'apple', count: '5', purchased_on: '2016-01-22', detail: 'organic Fuji apples'},
+            {item_id: '2', Name: 'orange', count: '4', purchased_on: '2016-01-21', detail: 'Navel oranges for smoothie'},
+            {item_id: '3', Name: 'cucumber', count: '6', purchased_on: '2016-01-24', detail: 'cool as a cucumber'},
+            {item_id: '4', Name: 'almond milk', count: '1', purchased_on: '2016-01-20', detail: 'For breakfast'},
+            {item_id: '5', Name: 'Quinoa', count: '1', purchased_on: '2016-01-24', detail:'1 bag, 1.5 pound'},
+            {item_id: '6', Name: 'potato', count: '6', purchased_on: '2016-01-23', detail:'purple and red potatoes'},
+            {item_id: '7', Name: 'chocolate', count: '2', purchased_on: '2016-01-19', detail:'dark chocolate, good for hot drink'}
+            ]
+    var form_ref = document.getElementById('updateForm');
+    var name_input = form_ref.elements['updateName'].value;
+    var count_input = form_ref.elements['updateCount'].value;
+    var date_input = form_ref.elements['updateDate'].value;
+    var info_input = form_ref.elements['updateInfo'].value;
+    stock_array[0].Name = name_input;
+    stock_array[0].count = count_input;
+    stock_array[0].purchased_on = date_input;
+    stock_array[0].detail = info_input;
+
+    }
+
+</script>
+</head>
+
+<body>
+    <div class='container'>
+
+        <div class = 'panel panel-success col-sm-6'>
+            <div class = 'panel-heading'>
+                <h2 class = 'panel-title' name = 'item_name' id = 'item_name'>
+                apple <!--For now this cannot dynamically change if updated -->
+                </h2>
+            </div>
+            <div class = 'form-group'>
+                <form name = 'updateForm' id = 'updateForm' onsubmit = "return updateItem(); return false">
+                <label for='updateName' class = 'control-label'>update name:</label>
+
+                <input type = 'text' class='form-control' id = 'updateName' name = 'updateName' placeholder = 'update name'>
+                <label for= 'updateCount' class = 'control-label'>update count:</label>
+                <input type = 'number' class='form-control' placeholder = 'update count' id='updateCount' name = 'updateCount'>
+
+                <label for='updateDate' class = 'control-label'>update date:</label>
+                <input type = 'date' class='form-control' id = 'updateDate' name = 'updateDate'>
+
+                <label for='updateInfo' class= 'control-label'>update description: </label>
+                <textarea class='form-control' id = 'updateInfo' name = 'updateInfo' placeholder = 'update this item'></textarea><br />
+                <button type = 'sumbit' id = 'updateBtn' name = 'updateBtn' class = 'btn btn-success'>Save</button><button type = 'button' id = 'back' class = 'btn btn-link pull-right' onclick = "location.href='file:///Users/ruiyingliu/Desktop/Lean_fridge_app/items.html'">Go back</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

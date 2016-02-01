@@ -11,23 +11,23 @@ Base = declarative_base()
 
 class Stock(Base):
     __tablename__ = 'stock'
-    id = Column(Integer, primary_key = True)
-    name = Column(String(20), nullable = False)
-    total = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key = True, autoincrement=True)
+    name = Column(String(20), nullable = False, unique = True)
+    total = Column(Integer, nullable = False)
 
 
-class ItemProperty(Base):
-    __tablename__ = 'itemProperty'
-    id = Column(Integer, primary_key = True)
-    name = Column(String(20), nullable = False)
-    purchased_on = Column(DateTime, default = datetime.date.today)
-    count = Column(Integer)
-    category = Column(String(20), nullable = False)
-    description = Column(String(50))
-    stock_id = Column(Integer, ForeignKey('stock.id'))
-    stock = relationship(Stock)
+#class ItemProperty(Base):
+    #__tablename__ = 'itemProperty'
+    #id = Column(Integer, primary_key = True)
+    #name = Column(String(20), nullable = False)
+    #purchased_on = Column(DateTime, default = datetime.date.today)
+    #count = Column(Integer)
+    #category = Column(String(20), nullable = False)
+    #description = Column(String(50))
+    #stock_id = Column(Integer, ForeignKey('stock.id'))
+    #stock = relationship(Stock)
 
 
-engine = create_engine('sqlite:///lean_fridge.db')
+engine = create_engine('sqlite:///lean_fridge_app.db')
 
 Base.metadata.create_all(engine)
