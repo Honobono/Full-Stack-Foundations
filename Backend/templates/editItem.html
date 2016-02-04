@@ -1,0 +1,16 @@
+<html>
+<body>
+  <h2>Edit Item</h2>
+
+  <form action = "{{url_for('editItem', item_id = item_id)}}" method = "POST">
+
+    <p>Name:</p>
+    <input type = 'text' name = 'name' placeholder= '{{item.name}}'>
+    <p>Total:</p>
+    <input type = 'number' name = 'name' placeholder = '{{item.total}}'>
+  </br>
+    <input type = 'submit' value = 'Edit'>
+  </form>
+  <a href = "{{url_for('index', item_id = item.id)}}">Cancel</a>
+</body>
+</html>
