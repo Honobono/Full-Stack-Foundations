@@ -1,0 +1,13 @@
+body {
+  background-color: #c2f0c2;
+}
+h2 {
+  font_family: helvetica;
+  text-align: center;
+}
+#page-wrap {
+  text-align: left;
+  width: 800px;
+  margin-left: 0 auto;
+  position:relative;
+}

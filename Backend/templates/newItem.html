@@ -1,0 +1,13 @@
+<html>
+<body>
+  <h2> Add New Item </h2>
+  <form action = '{{url_for('newItem')}}' method = 'POST'>
+    <p>Name:
+    <input type = 'text' name = 'name' id = 'name'></p>
+    <p>Total:
+    <input type = 'number' name = 'total' id = 'total'></p>
+    <p><input type = 'submit' value = 'Add'></p>
+  </form>
+
+</body>
+</html>
