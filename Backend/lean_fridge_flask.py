@@ -30,12 +30,17 @@ def itemDisplay(item_id):
 @app.route('/stock/new/', methods = ['GET', 'POST'])
 def newItem():
     if request.method == 'POST':
+        stock = session.query(Stock).all()
         newItem = Stock(name = request.form['name'],total = request.form['total'])
-        print request.form['name'], request.form['total']
+        for item in stock:
+            if item.name == newItem.name:
+                flash("Sorry, this item already exists!")
+                return redirect(url_for('index'))
         session.add(newItem)
         session.commit()
         flash("Awesome, a new item has been added to the stock!")
         return redirect(url_for('index'))
+
     else:
         return render_template('newItem.html')
 
