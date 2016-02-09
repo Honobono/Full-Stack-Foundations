@@ -41,18 +41,18 @@ def newItem():
 
 @app.route('/stock/<int:item_id>/edit/', methods = ['GET', 'POST'])
 def editItem(item_id):
-    item = session.query(Stock).filter_by(id = item_id).one()
+    editedItem = session.query(Stock).filter_by(id = item_id).one()
     if request.method == 'POST':
         if request.form['name']:
-            editItem.name = request.form['name']
-        elif request.form['total']:
-            editItem.total = request.form['total']
-        session.add(editItem)
+            editedItem.name = request.form['name']
+        if request.form['total']:
+            editedItem.total = request.form['total']
+        session.add(editedItem)
         session.commit()
         flash("You've successfully updated this item!")
-        return redirect(url_for('index', item_id = item.id))
+        return redirect(url_for('index', item_id = editedItem.id))
     else:
-        return render_template('editItem.html', item_id = item.id, item = item)
+        return render_template('editItem.html', item_id = editedItem.id, item = editedItem)
 
 @app.route('/stock/<int:item_id>/delete/', methods = ['GET', 'POST'])
 def deleteItem(item_id):
